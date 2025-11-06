@@ -19,6 +19,7 @@ setup(
     license='Apache-2.0',
     entry_points={
         'console_scripts': [
+            'fwd_kinematics = team_project.fwd_kinematics:main',
         ],
     },
 )
