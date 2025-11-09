@@ -24,15 +24,14 @@ class ForwardKinematics(Node):
 
         q1, q2, q3, q4 = msg.data
 
-        # TODO: verify that these are correct
         """
         DH parameter table:
-        Link | a   | θ   | d  | α
+        Link | a   | θ   |   d   | α
         ---------------------------
-        1    | 0   | q1  | l0 | 0
-        2    | 0   | q2  | l1 | 90
-        3    | a3  | q3  | l2 | 0
-        4    | 0   | q4  | l3 | 0
+        1    | 0   | q1  |  l0   | 0
+        2    | 0   | q2  | l1+k2 | 270
+        3    | k3  | q3  |   0   | 0
+        4    | 0   | q4  |  l3   | 0
 
         """
         A1 = make_A_matrix(
@@ -44,13 +43,13 @@ class ForwardKinematics(Node):
         A2 = make_A_matrix(
             a=0,
             theta=q2,
-            d=const.LINK_1_LENGTH,
+            d=const.LINK_1_LENGTH + const.LINK_2_LENGTH,
             alpha=const.ALPHA_2,
         )
         A3 = make_A_matrix(
             a=const.LINK_3_OFFSET,
             theta=q3,
-            d=const.LINK_2_LENGTH,
+            d=0,
             alpha=0,
         )
         A4 = make_A_matrix(
