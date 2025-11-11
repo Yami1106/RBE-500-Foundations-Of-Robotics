@@ -1,8 +1,9 @@
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Float32MultiArray
+from std_msgs.msg import Float64MultiArray
 from geometry_msgs.msg import Pose
 from scipy.spatial.transform import Rotation as R
+import numpy as np
 from .utils import make_A_matrix
 from . import constants as const
 
@@ -11,9 +12,9 @@ class ForwardKinematics(Node):
     def __init__(self):
         super().__init__("fwd_kinematics")
         self.subscriber = self.create_subscription(
-            Float32MultiArray, "joint_values", self.fwd_kinematics_cb, 10
+            Float64MultiArray, "joint_values", self.fwd_kinematics_cb, 10
         )
-        self.publisher = self.create_publisher(Pose, "end_effector_pose", 10)
+        self.publisher = self.create_publisher(Pose, "tool_pose", 10)
 
     def fwd_kinematics_cb(self, msg):
         if len(msg.data) != const.DOF:
@@ -29,9 +30,9 @@ class ForwardKinematics(Node):
         Link | a   | θ   |   d   | α
         ---------------------------
         1    | 0   | q1  |  l0   | 0
-        2    | 0   | q2  | l1+k2 | 270
-        3    | k3  | q3  |   0   | 0
-        4    | 0   | q4  |  l3   | 0
+        2    | 0   | q2  | l1+d2 | 270
+        3    | a3  | q3  |   0   | 0
+        4    | l3  | q4  |   0   | 0
 
         """
         A1 = make_A_matrix(
@@ -53,12 +54,16 @@ class ForwardKinematics(Node):
             alpha=0,
         )
         A4 = make_A_matrix(
-            a=0,
+            a=const.LINK_3_LENGTH,
             theta=q4,
-            d=const.LINK_3_LENGTH,
+            d=0,
             alpha=0,
         )
-        T = A1 @ A2 @ A3 @ A4
+        # tool offset along robot's x axis
+        A_tool = np.eye(4)
+        A_tool[:3, 3] = [const.LINK_4_LENGTH, 0.0, 0.0]
+
+        T = A1 @ A2 @ A3 @ A4 @ A_tool
         rotation, position = T[:3, :3], T[:3, 3]
 
         pose = Pose()
