@@ -15,11 +15,12 @@ setup(
     zip_safe=True,
     maintainer='ben',
     maintainer_email='benorr3@gmail.com',
-    description='TODO: Package description',
+    description='RBE-500 Team Project source code package',
     license='Apache-2.0',
     entry_points={
         'console_scripts': [
             'fwd_kinematics = team_project.fwd_kinematics:main',
+            'inv_kinematics = team_project.inv_kinematics:main',
         ],
     },
 )
