@@ -1,3 +1,0 @@
-[console_scripts]
-basic_robot_control = rbe500_example_py.basic_robot_control:main
-

@@ -1,0 +1,4 @@
+[console_scripts]
+fwd_kinematics = team_project.fwd_kinematics:main
+inv_kinematics = team_project.inv_kinematics:main
+

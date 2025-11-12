@@ -1,0 +1,46 @@
+running egg_info
+creating ../../build/team_project/team_project.egg-info
+writing ../../build/team_project/team_project.egg-info/PKG-INFO
+writing dependency_links to ../../build/team_project/team_project.egg-info/dependency_links.txt
+writing entry points to ../../build/team_project/team_project.egg-info/entry_points.txt
+writing requirements to ../../build/team_project/team_project.egg-info/requires.txt
+writing top-level names to ../../build/team_project/team_project.egg-info/top_level.txt
+writing manifest file '../../build/team_project/team_project.egg-info/SOURCES.txt'
+reading manifest file '../../build/team_project/team_project.egg-info/SOURCES.txt'
+adding license file 'LICENSE'
+writing manifest file '../../build/team_project/team_project.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /root/ros2_ws/RBE-500-Foundations-Of-Robotics/build/team_project/build
+creating /root/ros2_ws/RBE-500-Foundations-Of-Robotics/build/team_project/build/lib
+creating /root/ros2_ws/RBE-500-Foundations-Of-Robotics/build/team_project/build/lib/team_project
+copying team_project/constants.py -> /root/ros2_ws/RBE-500-Foundations-Of-Robotics/build/team_project/build/lib/team_project
+copying team_project/utils.py -> /root/ros2_ws/RBE-500-Foundations-Of-Robotics/build/team_project/build/lib/team_project
+copying team_project/fwd_kinematics.py -> /root/ros2_ws/RBE-500-Foundations-Of-Robotics/build/team_project/build/lib/team_project
+copying team_project/__init__.py -> /root/ros2_ws/RBE-500-Foundations-Of-Robotics/build/team_project/build/lib/team_project
+copying team_project/inv_kinematics.py -> /root/ros2_ws/RBE-500-Foundations-Of-Robotics/build/team_project/build/lib/team_project
+running install
+running install_lib
+creating /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/lib/python3.10/site-packages/team_project
+copying /root/ros2_ws/RBE-500-Foundations-Of-Robotics/build/team_project/build/lib/team_project/constants.py -> /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/lib/python3.10/site-packages/team_project
+copying /root/ros2_ws/RBE-500-Foundations-Of-Robotics/build/team_project/build/lib/team_project/utils.py -> /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/lib/python3.10/site-packages/team_project
+copying /root/ros2_ws/RBE-500-Foundations-Of-Robotics/build/team_project/build/lib/team_project/fwd_kinematics.py -> /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/lib/python3.10/site-packages/team_project
+copying /root/ros2_ws/RBE-500-Foundations-Of-Robotics/build/team_project/build/lib/team_project/__init__.py -> /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/lib/python3.10/site-packages/team_project
+copying /root/ros2_ws/RBE-500-Foundations-Of-Robotics/build/team_project/build/lib/team_project/inv_kinematics.py -> /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/lib/python3.10/site-packages/team_project
+byte-compiling /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/lib/python3.10/site-packages/team_project/constants.py to constants.cpython-310.pyc
+byte-compiling /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/lib/python3.10/site-packages/team_project/utils.py to utils.cpython-310.pyc
+byte-compiling /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/lib/python3.10/site-packages/team_project/fwd_kinematics.py to fwd_kinematics.cpython-310.pyc
+byte-compiling /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/lib/python3.10/site-packages/team_project/__init__.py to __init__.cpython-310.pyc
+byte-compiling /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/lib/python3.10/site-packages/team_project/inv_kinematics.py to inv_kinematics.cpython-310.pyc
+running install_data
+creating /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/share/ament_index
+creating /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/share/ament_index/resource_index
+creating /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/share/ament_index/resource_index/packages
+copying resource/team_project -> /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/share/ament_index/resource_index/packages
+copying package.xml -> /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/share/team_project
+running install_egg_info
+Copying ../../build/team_project/team_project.egg-info to /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/lib/python3.10/site-packages/team_project-0.0.0-py3.10.egg-info
+running install_scripts
+Installing fwd_kinematics script to /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/lib/team_project
+Installing inv_kinematics script to /root/ros2_ws/RBE-500-Foundations-Of-Robotics/install/team_project/lib/team_project
+writing list of installed files to '/root/ros2_ws/RBE-500-Foundations-Of-Robotics/build/team_project/install.log'

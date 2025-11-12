@@ -1,1 +1,0 @@
-/root/ros2_ws/build/open_manipulator_msgs/rosidl_generator_c/open_manipulator_msgs/msg/detail/kinematics_pose__struct.h

@@ -1,1 +1,0 @@
-/root/ros2_ws/build/open_manipulator_msgs/rosidl_cmake/srv/GetJointPosition_Request.msg

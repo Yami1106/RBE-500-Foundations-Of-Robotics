@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>team_project</name>
+  <version>0.0.0</version>
+  <description>RBE-500 Team Project source code package</description>
+  <maintainer email="benorr3@gmail.com">ben</maintainer>
+  <license>Apache-2.0</license>
+
+  <exec_depend>py_srvcli</exec_depend>
+  <depend>geometry_msgs</depend>
+  <depend>std_msgs</depend>
+  <!-- <depend>interfaces_pkg</depend> -->
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

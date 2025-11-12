@@ -1,4 +1,0 @@
-source;share/cmake_modules/local_setup.bash
-source;share/cmake_modules/local_setup.dsv
-source;share/cmake_modules/local_setup.sh
-source;share/cmake_modules/local_setup.zsh

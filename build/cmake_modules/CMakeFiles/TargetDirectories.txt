@@ -1,9 +1,0 @@
-/root/ros2_ws/build/cmake_modules/CMakeFiles/uninstall.dir
-/root/ros2_ws/build/cmake_modules/CMakeFiles/cmake_modules_uninstall.dir
-/root/ros2_ws/build/cmake_modules/CMakeFiles/test.dir
-/root/ros2_ws/build/cmake_modules/CMakeFiles/edit_cache.dir
-/root/ros2_ws/build/cmake_modules/CMakeFiles/rebuild_cache.dir
-/root/ros2_ws/build/cmake_modules/CMakeFiles/list_install_components.dir
-/root/ros2_ws/build/cmake_modules/CMakeFiles/install.dir
-/root/ros2_ws/build/cmake_modules/CMakeFiles/install/local.dir
-/root/ros2_ws/build/cmake_modules/CMakeFiles/install/strip.dir

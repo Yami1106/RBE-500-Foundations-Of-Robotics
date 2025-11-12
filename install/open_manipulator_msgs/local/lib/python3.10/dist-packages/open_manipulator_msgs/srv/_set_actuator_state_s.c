@@ -1,1 +1,0 @@
-/root/ros2_ws/build/open_manipulator_msgs/rosidl_generator_py/open_manipulator_msgs/srv/_set_actuator_state_s.c

@@ -1,1 +1,0 @@
-/root/ros2_ws/build/cmake_modules/ament_cmake_core/cmake_modulesConfig-version.cmake

@@ -1,3 +1,0 @@
-string planning_group
-JointPosition joint_position
-float64 path_time

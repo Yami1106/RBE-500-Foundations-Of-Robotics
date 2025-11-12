@@ -1,1 +1,0 @@
-/root/ros2_ws/build/open_manipulator_x_description/ament_cmake_core/open_manipulator_x_descriptionConfig.cmake

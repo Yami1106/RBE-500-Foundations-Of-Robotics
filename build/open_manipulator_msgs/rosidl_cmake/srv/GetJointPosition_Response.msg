@@ -1,2 +1,0 @@
-
-JointPosition joint_position

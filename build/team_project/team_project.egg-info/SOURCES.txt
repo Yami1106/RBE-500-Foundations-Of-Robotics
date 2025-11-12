@@ -1,0 +1,17 @@
+LICENSE
+package.xml
+setup.cfg
+setup.py
+../../build/team_project/team_project.egg-info/PKG-INFO
+../../build/team_project/team_project.egg-info/SOURCES.txt
+../../build/team_project/team_project.egg-info/dependency_links.txt
+../../build/team_project/team_project.egg-info/entry_points.txt
+../../build/team_project/team_project.egg-info/requires.txt
+../../build/team_project/team_project.egg-info/top_level.txt
+../../build/team_project/team_project.egg-info/zip-safe
+resource/team_project
+team_project/__init__.py
+team_project/constants.py
+team_project/fwd_kinematics.py
+team_project/inv_kinematics.py
+team_project/utils.py
