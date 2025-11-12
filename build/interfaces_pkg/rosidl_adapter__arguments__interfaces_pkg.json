@@ -1,6 +1,0 @@
-{
-  "package_name": "interfaces_pkg",
-  "non_idl_tuples": [
-    "/root/ros2_ws/RBE-500-Foundations-Of-Robotics/src/interfaces_pkg:srv/InverseKinematics.srv"
-  ]
-}
