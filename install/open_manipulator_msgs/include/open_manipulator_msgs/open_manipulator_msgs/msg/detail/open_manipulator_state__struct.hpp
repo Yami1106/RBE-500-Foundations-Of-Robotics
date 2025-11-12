@@ -1,0 +1,1 @@
+/root/ros2_ws/build/open_manipulator_msgs/rosidl_generator_cpp/open_manipulator_msgs/msg/detail/open_manipulator_state__struct.hpp

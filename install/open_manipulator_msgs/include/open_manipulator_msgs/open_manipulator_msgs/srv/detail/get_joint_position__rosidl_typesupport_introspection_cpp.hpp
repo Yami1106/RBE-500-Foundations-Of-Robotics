@@ -1,0 +1,1 @@
+/root/ros2_ws/build/open_manipulator_msgs/rosidl_typesupport_introspection_cpp/open_manipulator_msgs/srv/detail/get_joint_position__rosidl_typesupport_introspection_cpp.hpp

@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "open_manipulator_msgs__py",
+		"source" : "/root/ros2_ws/build/open_manipulator_msgs/open_manipulator_msgs__py"
+	}
+}

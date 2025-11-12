@@ -1,0 +1,9 @@
+/root/ros2_ws/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:msg/JointPosition.idl
+/root/ros2_ws/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:msg/KinematicsPose.idl
+/root/ros2_ws/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:msg/OpenManipulatorState.idl
+/root/ros2_ws/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:srv/GetJointPosition.idl
+/root/ros2_ws/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:srv/GetKinematicsPose.idl
+/root/ros2_ws/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:srv/SetJointPosition.idl
+/root/ros2_ws/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:srv/SetKinematicsPose.idl
+/root/ros2_ws/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:srv/SetDrawingTrajectory.idl
+/root/ros2_ws/build/open_manipulator_msgs/rosidl_adapter/open_manipulator_msgs:srv/SetActuatorState.idl

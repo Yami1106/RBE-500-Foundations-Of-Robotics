@@ -1,0 +1,1 @@
+/root/ros2_ws/build/open_manipulator_msgs/rosidl_generator_c/open_manipulator_msgs/msg/rosidl_generator_c__visibility_control.h

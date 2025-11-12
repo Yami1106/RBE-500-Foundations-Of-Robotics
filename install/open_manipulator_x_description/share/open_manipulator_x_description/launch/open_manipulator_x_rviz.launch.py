@@ -1,0 +1,1 @@
+/root/ros2_ws/src/open_manipulator/open_manipulator_x_description/launch/open_manipulator_x_rviz.launch.py

@@ -1,0 +1,75 @@
+[0.026s] Invoking command in '/root/ros2_ws/build/open_manipulator_x_controller': AMENT_PREFIX_PATH=/root/ros2_ws/install/open_manipulator_x_libs:/root/ros2_ws/install/robotis_manipulator:/root/ros2_ws/install/dynamixel_workbench_toolbox:/root/ros2_ws/install/open_manipulator_msgs:/root/ros2_ws/install/dynamixel_sdk:/root/ros2_ws/install/cmake_modules:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/ros2_ws/install/open_manipulator_x_libs:/root/ros2_ws/install/robotis_manipulator:/root/ros2_ws/install/dynamixel_workbench_toolbox:/root/ros2_ws/install/open_manipulator_msgs:/root/ros2_ws/install/dynamixel_sdk:/root/ros2_ws/install/cmake_modules:/opt/ros/humble LD_LIBRARY_PATH=/root/ros2_ws/install/open_manipulator_x_libs/lib:/root/ros2_ws/install/robotis_manipulator/lib:/root/ros2_ws/install/dynamixel_workbench_toolbox/lib:/root/ros2_ws/install/open_manipulator_msgs/lib:/root/ros2_ws/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/ros2_ws/install/open_manipulator_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /root/ros2_ws/src/open_manipulator/open_manipulator_x_controller -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/root/ros2_ws/install/open_manipulator_x_controller
+[0.096s] -- The C compiler identification is GNU 11.4.0
+[0.167s] -- The CXX compiler identification is GNU 11.4.0
+[0.177s] -- Detecting C compiler ABI info
+[0.266s] -- Detecting C compiler ABI info - done
+[0.276s] -- Check for working C compiler: /usr/bin/cc - skipped
+[0.276s] -- Detecting C compile features
+[0.276s] -- Detecting C compile features - done
+[0.281s] -- Detecting CXX compiler ABI info
+[0.385s] -- Detecting CXX compiler ABI info - done
+[0.394s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[0.395s] -- Detecting CXX compile features
+[0.395s] -- Detecting CXX compile features - done
+[0.402s] -- Found ament_cmake: 1.3.12 (/opt/ros/humble/share/ament_cmake/cmake)
+[0.602s] -- Found Python3: /usr/bin/python3 (found version "3.10.12") found components: Interpreter 
+[0.703s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.767s] -- Found geometry_msgs: 4.9.0 (/opt/ros/humble/share/geometry_msgs/cmake)
+[0.834s] -- Found rosidl_generator_c: 3.1.7 (/opt/ros/humble/share/rosidl_generator_c/cmake)
+[0.844s] -- Found rosidl_adapter: 3.1.7 (/opt/ros/humble/share/rosidl_adapter/cmake)
+[0.859s] -- Found rosidl_generator_cpp: 3.1.7 (/opt/ros/humble/share/rosidl_generator_cpp/cmake)
+[0.878s] -- Using all available rosidl_typesupport_c: rosidl_typesupport_fastrtps_c;rosidl_typesupport_introspection_c
+[0.901s] -- Using all available rosidl_typesupport_cpp: rosidl_typesupport_fastrtps_cpp;rosidl_typesupport_introspection_cpp
+[0.943s] -- Found open_manipulator_msgs: 2.2.0 (/root/ros2_ws/install/open_manipulator_msgs/share/open_manipulator_msgs/cmake)
+[0.958s] -- Found open_manipulator_x_libs: 2.3.0 (/root/ros2_ws/install/open_manipulator_x_libs/share/open_manipulator_x_libs/cmake)
+[1.014s] -- Found rmw_implementation_cmake: 6.1.2 (/opt/ros/humble/share/rmw_implementation_cmake/cmake)
+[1.018s] -- Found rmw_fastrtps_cpp: 6.2.8 (/opt/ros/humble/share/rmw_fastrtps_cpp/cmake)
+[1.115s] -- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "3.0.2")  
+[1.151s] -- Found FastRTPS: /opt/ros/humble/include  
+[1.216s] -- Using RMW implementation 'rmw_fastrtps_cpp' as default
+[1.233s] -- Looking for pthread.h
+[1.320s] -- Looking for pthread.h - found
+[1.320s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+[1.405s] -- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+[1.406s] -- Found Threads: TRUE  
+[1.489s] -- Found sensor_msgs: 4.9.0 (/opt/ros/humble/share/sensor_msgs/cmake)
+[1.517s] -- Found trajectory_msgs: 4.9.0 (/opt/ros/humble/share/trajectory_msgs/cmake)
+[1.630s] -- Configuring done
+[1.651s] -- Generating done
+[1.656s] -- Build files have been written to: /root/ros2_ws/build/open_manipulator_x_controller
+[1.667s] Invoked command in '/root/ros2_ws/build/open_manipulator_x_controller' returned '0': AMENT_PREFIX_PATH=/root/ros2_ws/install/open_manipulator_x_libs:/root/ros2_ws/install/robotis_manipulator:/root/ros2_ws/install/dynamixel_workbench_toolbox:/root/ros2_ws/install/open_manipulator_msgs:/root/ros2_ws/install/dynamixel_sdk:/root/ros2_ws/install/cmake_modules:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/ros2_ws/install/open_manipulator_x_libs:/root/ros2_ws/install/robotis_manipulator:/root/ros2_ws/install/dynamixel_workbench_toolbox:/root/ros2_ws/install/open_manipulator_msgs:/root/ros2_ws/install/dynamixel_sdk:/root/ros2_ws/install/cmake_modules:/opt/ros/humble LD_LIBRARY_PATH=/root/ros2_ws/install/open_manipulator_x_libs/lib:/root/ros2_ws/install/robotis_manipulator/lib:/root/ros2_ws/install/dynamixel_workbench_toolbox/lib:/root/ros2_ws/install/open_manipulator_msgs/lib:/root/ros2_ws/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/ros2_ws/install/open_manipulator_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake /root/ros2_ws/src/open_manipulator/open_manipulator_x_controller -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/root/ros2_ws/install/open_manipulator_x_controller
+[1.669s] Invoking command in '/root/ros2_ws/build/open_manipulator_x_controller': AMENT_PREFIX_PATH=/root/ros2_ws/install/open_manipulator_x_libs:/root/ros2_ws/install/robotis_manipulator:/root/ros2_ws/install/dynamixel_workbench_toolbox:/root/ros2_ws/install/open_manipulator_msgs:/root/ros2_ws/install/dynamixel_sdk:/root/ros2_ws/install/cmake_modules:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/ros2_ws/install/open_manipulator_x_libs:/root/ros2_ws/install/robotis_manipulator:/root/ros2_ws/install/dynamixel_workbench_toolbox:/root/ros2_ws/install/open_manipulator_msgs:/root/ros2_ws/install/dynamixel_sdk:/root/ros2_ws/install/cmake_modules:/opt/ros/humble LD_LIBRARY_PATH=/root/ros2_ws/install/open_manipulator_x_libs/lib:/root/ros2_ws/install/robotis_manipulator/lib:/root/ros2_ws/install/dynamixel_workbench_toolbox/lib:/root/ros2_ws/install/open_manipulator_msgs/lib:/root/ros2_ws/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/ros2_ws/install/open_manipulator_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /root/ros2_ws/build/open_manipulator_x_controller -- -j24 -l24
+[1.734s] [ 50%] [32mBuilding CXX object CMakeFiles/open_manipulator_x_controller.dir/src/open_manipulator_x_controller.cpp.o[0m
+[4.488s] [01m[K/root/ros2_ws/src/open_manipulator/open_manipulator_x_controller/src/open_manipulator_x_controller.cpp:[m[K In member function ‘[01m[Kvoid open_manipulator_x_controller::OpenManipulatorXController::init_publisher()[m[K’:
+[4.488s] [01m[K/root/ros2_ws/src/open_manipulator/open_manipulator_x_controller/src/open_manipulator_x_controller.cpp:103:21:[m[K [01;35m[Kwarning: [m[Kunused variable ‘[01m[Kname[m[K’ [[01;35m[K-Wunused-variable[m[K]
+[4.488s]   103 |   for (auto const & [01;35m[Kname[m[K:tools_name)
+[4.488s]       |                     [01;35m[K^~~~[m[K
+[13.461s] [100%] [32m[1mLinking CXX executable open_manipulator_x_controller[0m
+[14.215s] [100%] Built target open_manipulator_x_controller
+[14.230s] Invoked command in '/root/ros2_ws/build/open_manipulator_x_controller' returned '0': AMENT_PREFIX_PATH=/root/ros2_ws/install/open_manipulator_x_libs:/root/ros2_ws/install/robotis_manipulator:/root/ros2_ws/install/dynamixel_workbench_toolbox:/root/ros2_ws/install/open_manipulator_msgs:/root/ros2_ws/install/dynamixel_sdk:/root/ros2_ws/install/cmake_modules:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/ros2_ws/install/open_manipulator_x_libs:/root/ros2_ws/install/robotis_manipulator:/root/ros2_ws/install/dynamixel_workbench_toolbox:/root/ros2_ws/install/open_manipulator_msgs:/root/ros2_ws/install/dynamixel_sdk:/root/ros2_ws/install/cmake_modules:/opt/ros/humble LD_LIBRARY_PATH=/root/ros2_ws/install/open_manipulator_x_libs/lib:/root/ros2_ws/install/robotis_manipulator/lib:/root/ros2_ws/install/dynamixel_workbench_toolbox/lib:/root/ros2_ws/install/open_manipulator_msgs/lib:/root/ros2_ws/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/ros2_ws/install/open_manipulator_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --build /root/ros2_ws/build/open_manipulator_x_controller -- -j24 -l24
+[14.231s] Invoking command in '/root/ros2_ws/build/open_manipulator_x_controller': AMENT_PREFIX_PATH=/root/ros2_ws/install/open_manipulator_x_libs:/root/ros2_ws/install/robotis_manipulator:/root/ros2_ws/install/dynamixel_workbench_toolbox:/root/ros2_ws/install/open_manipulator_msgs:/root/ros2_ws/install/dynamixel_sdk:/root/ros2_ws/install/cmake_modules:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/ros2_ws/install/open_manipulator_x_libs:/root/ros2_ws/install/robotis_manipulator:/root/ros2_ws/install/dynamixel_workbench_toolbox:/root/ros2_ws/install/open_manipulator_msgs:/root/ros2_ws/install/dynamixel_sdk:/root/ros2_ws/install/cmake_modules:/opt/ros/humble LD_LIBRARY_PATH=/root/ros2_ws/install/open_manipulator_x_libs/lib:/root/ros2_ws/install/robotis_manipulator/lib:/root/ros2_ws/install/dynamixel_workbench_toolbox/lib:/root/ros2_ws/install/open_manipulator_msgs/lib:/root/ros2_ws/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/ros2_ws/install/open_manipulator_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /root/ros2_ws/build/open_manipulator_x_controller
+[14.241s] -- Install configuration: ""
+[14.242s] -- Execute custom install script
+[14.242s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/lib/open_manipulator_x_controller/open_manipulator_x_controller
+[14.253s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/99-open-manipulator-cdc.rules
+[14.264s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/launch/open_manipulator_x_controller.launch.py
+[14.274s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/param/open_manipulator_x_controller_params.yaml
+[14.284s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/lib/open_manipulator_x_controller/create_udev_rules
+[14.294s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/ament_index/resource_index/package_run_dependencies/open_manipulator_x_controller
+[14.304s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/ament_index/resource_index/parent_prefix_path/open_manipulator_x_controller
+[14.314s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/environment/ament_prefix_path.sh
+[14.324s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/environment/ament_prefix_path.dsv
+[14.334s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/environment/path.sh
+[14.344s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/environment/path.dsv
+[14.353s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/local_setup.bash
+[14.363s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/local_setup.sh
+[14.373s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/local_setup.zsh
+[14.383s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/local_setup.dsv
+[14.393s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/package.dsv
+[14.403s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/ament_index/resource_index/packages/open_manipulator_x_controller
+[14.413s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/cmake/ament_cmake_export_include_directories-extras.cmake
+[14.423s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/cmake/ament_cmake_export_dependencies-extras.cmake
+[14.433s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/cmake/open_manipulator_x_controllerConfig.cmake
+[14.443s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/cmake/open_manipulator_x_controllerConfig-version.cmake
+[14.452s] -- Symlinking: /root/ros2_ws/install/open_manipulator_x_controller/share/open_manipulator_x_controller/package.xml
+[14.465s] Invoked command in '/root/ros2_ws/build/open_manipulator_x_controller' returned '0': AMENT_PREFIX_PATH=/root/ros2_ws/install/open_manipulator_x_libs:/root/ros2_ws/install/robotis_manipulator:/root/ros2_ws/install/dynamixel_workbench_toolbox:/root/ros2_ws/install/open_manipulator_msgs:/root/ros2_ws/install/dynamixel_sdk:/root/ros2_ws/install/cmake_modules:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/root/ros2_ws/install/open_manipulator_x_libs:/root/ros2_ws/install/robotis_manipulator:/root/ros2_ws/install/dynamixel_workbench_toolbox:/root/ros2_ws/install/open_manipulator_msgs:/root/ros2_ws/install/dynamixel_sdk:/root/ros2_ws/install/cmake_modules:/opt/ros/humble LD_LIBRARY_PATH=/root/ros2_ws/install/open_manipulator_x_libs/lib:/root/ros2_ws/install/robotis_manipulator/lib:/root/ros2_ws/install/dynamixel_workbench_toolbox/lib:/root/ros2_ws/install/open_manipulator_msgs/lib:/root/ros2_ws/install/dynamixel_sdk/lib:${LD_LIBRARY_PATH} PYTHONPATH=/root/ros2_ws/install/open_manipulator_msgs/local/lib/python3.10/dist-packages:${PYTHONPATH} /usr/bin/cmake --install /root/ros2_ws/build/open_manipulator_x_controller
