@@ -1,29 +1,37 @@
 import numpy as np
-from . import constants as const
 from geometry_msgs.msg import Pose, Quaternion
+
+from . import constants as const
+
 
 ###############################################################################
 ############################## Utility Functions ##############################
 ###############################################################################
 
+
 ############################## Forward Kinematics #############################
 
 
 def make_A_matrix(a: float, theta: float, d: float, alpha: float) -> np.ndarray:
-    """Create the individual transformation matrix A using DH parameters."""
-    alpha = np.radians(alpha)
-    theta = np.radians(theta)
-    ca = np.cos(alpha)
-    sa = np.sin(alpha)
-    ct = np.cos(theta)
-    st = np.sin(theta)
+    """Create the individual transformation matrix A using DH parameters.
+
+    Inputs:
+        a, theta, d, alpha in *degrees* for theta/alpha (a, d in mm).
+    """
+    alpha_rad = np.radians(alpha)
+    theta_rad = np.radians(theta)
+
+    ca = np.cos(alpha_rad)
+    sa = np.sin(alpha_rad)
+    ct = np.cos(theta_rad)
+    st = np.sin(theta_rad)
 
     A = np.array(
         [
             [ct, -st * ca, st * sa, a * ct],
             [st, ct * ca, -ct * sa, a * st],
-            [0, sa, ca, d],
-            [0, 0, 0, 1],
+            [0.0, sa, ca, d],
+            [0.0, 0.0, 0.0, 1.0],
         ]
     )
 
@@ -40,7 +48,7 @@ def get_wrist_position(pose: Pose) -> tuple[float, float, float]:
     qz = pose.orientation.z
     qw = pose.orientation.w
 
-    # get third column of rotation matrix from quaternion
+    # Third column of rotation matrix from quaternion
     r13 = 2 * (qx * qz + qw * qy)
     r23 = 2 * (qy * qz - qw * qx)
     r33 = 1 - 2 * (qx**2 + qy**2)
@@ -59,7 +67,9 @@ def calculate_q1(x: float, y: float) -> float:
 
 def _planar_components(x: float, y: float, z: float) -> tuple[float, float]:
     """Calculate planar components r and s from wrist center position."""
-    return np.hypot(x, y), z - const.LINK_2_OFFSET
+    r = np.hypot(x, y)
+    s = z - const.LINK_2_OFFSET
+    return r, s
 
 
 def _cos_law_D(x: float, y: float, z: float) -> float:
@@ -72,13 +82,15 @@ def _cos_law_D(x: float, y: float, z: float) -> float:
         - const.LINK_3_OFFSET**2
         - const.LINK_3_LENGTH**2
     ) / (2 * const.LINK_3_LENGTH * np.hypot(const.LINK_2_LENGTH, const.LINK_3_OFFSET))
-    assert -1 <= D <= 1, "Position is unreachable."
+
+    # If unreachable, this assertion will throw.
+    assert -1.0 <= D <= 1.0, "Position is unreachable."
     return D
 
 
 def _elbow_joint_theta3(D: float) -> float:
-    """Calculate elbow joint angle 03 using cosine law D value."""
-    return np.arctan2(-np.sqrt(1 - D**2), D)
+    """Calculate elbow joint angle θ3 using cosine law D value."""
+    return np.arctan2(-np.sqrt(1.0 - D**2), D)
 
 
 def _offset_angle_beta() -> float:
@@ -92,6 +104,7 @@ def calculate_q2(x: float, y: float, z: float) -> float:
     D = _cos_law_D(x, y, z)
     theta3 = _elbow_joint_theta3(D)
     beta = _offset_angle_beta()
+
     return (
         np.arctan2(s, r)
         - np.arctan2(
@@ -113,13 +126,13 @@ def calculate_q4(x: float, y: float, z: float, orientation: Quaternion) -> float
     q2 = calculate_q2(x, y, z)
     q3 = calculate_q3(x, y, z)
 
-    # get rotation matrix from quaternion
+    # Rotation matrix elements from quaternion
     qx = orientation.x
     qy = orientation.y
     qz = orientation.z
     qw = orientation.w
 
-    # get R31 and R33
+    # R31 and R33 from quaternion
     r31 = 2 * (qx * qy + qw * qz)
     r33 = 1 - 2 * (qy**2 + qz**2)
 
