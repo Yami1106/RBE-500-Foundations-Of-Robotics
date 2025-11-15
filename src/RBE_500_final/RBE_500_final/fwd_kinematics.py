@@ -37,49 +37,48 @@ class ForwardKinematics(Node):
 
         # Expecting 4 DOF: q1, q2, q3, q4
         q1, q2, q3, q4 = msg.data
-
         """
         DH parameter table:
         Link |   a   |  θ  |   d        | α
         -------------------------------------
-        1    |   0   | q1  |  l0        | 0
-        2    |   0   | q2  | l1 + d2    | 270
-        3    |  a3   | q3  |  0         | 0
-        4    |  l3   | q4  |  0         | 0
+        1    |   0   | q1     |  d1        | 90
+        2    |  a2   | q2-th  |  0         | 0
+        3    |  a3   | q3+th  |  0         | 0
+        4    |  a4   | q4     |  0         | 0
         """
 
         # NOTE: make_A_matrix internally converts theta, alpha from degrees to radians.
         A1 = make_A_matrix(
-            a=0.0,
+            a=const.a1,
             theta=q1,
-            d=const.LINK_0_LENGTH,
-            alpha=0.0,
+            d=const.d1,
+            alpha=const.a1,
         )
         A2 = make_A_matrix(
-            a=0.0,
-            theta=q2,
-            d=const.LINK_1_LENGTH + const.LINK_2_LENGTH,
-            alpha=const.ALPHA_2,
+            a=const.a2,
+            theta=(q2 - const.angle_offset),
+            d=const.d2,
+            alpha=const.alpha2,
         )
         A3 = make_A_matrix(
-            a=const.LINK_3_OFFSET,
-            theta=q3,
-            d=0.0,
-            alpha=0.0,
+            a=const.a3,
+            theta=(q3 + const.angle_offset),
+            d=const.d3,
+            alpha=const.alpha3,
         )
         A4 = make_A_matrix(
-            a=const.LINK_3_LENGTH,
+            a=const.a4,
             theta=q4,
-            d=0.0,
-            alpha=0.0,
+            d=const.d4,
+            alpha=const.alpha4,
         )
 
         # Tool offset along robot's x axis
-        A_tool = np.eye(4)
-        A_tool[:3, 3] = [const.LINK_4_LENGTH, 0.0, 0.0]
+        #A_tool = np.eye(4)
+        #A_tool[:3, 3] = [const.a4, 0.0, 0.0]
 
         # Full transform from base to tool
-        T = A1 @ A2 @ A3 @ A4 @ A_tool
+        T = A1 @ A2 @ A3 @ A4 #@ A_tool
         rotation, position = T[:3, :3], T[:3, 3]
 
         pose = Pose()
