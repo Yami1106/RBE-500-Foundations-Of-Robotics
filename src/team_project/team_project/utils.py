@@ -1,6 +1,7 @@
 import numpy as np
 from . import constants as const
 from geometry_msgs.msg import Pose, Quaternion
+from scipy.spatial.transform import Rotation as R
 
 ###############################################################################
 ############################## Utility Functions ##############################
@@ -40,31 +41,42 @@ def get_wrist_position(pose: Pose) -> tuple[float, float, float]:
     qz = pose.orientation.z
     qw = pose.orientation.w
 
-    # get third column of rotation matrix from quaternion
-    r13 = 2 * (qx * qz + qw * qy)
-    r23 = 2 * (qy * qz - qw * qx)
-    r33 = 1 - 2 * (qx**2 + qy**2)
-
-    x_c = pose.position.x - const.LINK_4_LENGTH * r13
-    y_c = pose.position.y - const.LINK_4_LENGTH * r23
-    z_c = pose.position.z - const.LINK_4_LENGTH * r33
+    rot = R.from_quat([qx, qy, qz, qw])
+    tooltip_axis_world = rot.apply(np.array([1.0, 0.0, 0.0]))
+    x_c, y_c, z_c = (
+        np.array([pose.position.x, pose.position.y, pose.position.z])
+        - const.LINK_4_LENGTH * tooltip_axis_world
+    )
 
     return x_c, y_c, z_c
 
 
 def calculate_q1(x: float, y: float) -> float:
-    """Calculate joint angle q1 (yaw about base) given wrist center position."""
+    """Calculate joint angle q1 (yaw about base) given position."""
     return np.arctan2(y, x)
 
 
-def _planar_components(x: float, y: float, z: float) -> tuple[float, float]:
-    """Calculate planar components r and s from wrist center position."""
-    return np.hypot(x, y), z - const.LINK_2_OFFSET
+def _calculate_z3_r3_phi(x: float, y: float, z: float) -> float:
+    """Calculate angle phi ."""
+    z3 = z - const.LINK_2_OFFSET
+    r3 = np.hypot(x, y)
+    phi = np.arctan2(z3, r3)
+    return z3, r3, phi
+
+
+def _calculate_r_s(x: float, y: float, z: float) -> tuple[float, float]:
+    """Calculate planar components r and s from position."""
+    z3, r3, phi = _calculate_z3_r3_phi(x, y, z)
+    r, s = (
+        r3 - const.LINK_4_LENGTH * np.cos(phi),
+        z3 - const.LINK_4_LENGTH * np.sin(phi),
+    )
+    return r, s
 
 
 def _cos_law_D(x: float, y: float, z: float) -> float:
-    """Calculate the cosine law D value from wrist center position."""
-    r, s = _planar_components(x, y, z)
+    """Calculate the cosine law D value from position."""
+    r, s = _calculate_r_s(x, y, z)
     D = (
         r**2
         + s**2
@@ -81,31 +93,25 @@ def _elbow_joint_theta3(D: float) -> float:
     return np.arctan2(-np.sqrt(1 - D**2), D)
 
 
-def _offset_angle_beta() -> float:
-    """Calculate the offset angle beta."""
-    return np.arctan2(const.LINK_3_OFFSET, const.LINK_2_LENGTH)
-
-
 def calculate_q2(x: float, y: float, z: float) -> float:
-    """Calculate joint angle q2 (shoulder pitch) given wrist center position."""
-    r, s = _planar_components(x, y, z)
-    D = _cos_law_D(x, y, z)
-    theta3 = _elbow_joint_theta3(D)
-    beta = _offset_angle_beta()
-    return (
-        np.arctan2(s, r)
-        - np.arctan2(
-            const.LINK_3_LENGTH * np.sin(theta3),
-            np.hypot(const.LINK_2_LENGTH, const.LINK_3_OFFSET)
-            + const.LINK_3_LENGTH * np.cos(theta3),
-        )
-        + beta
-    )
+    """Calculate joint angle q2 (shoulder pitch) given position."""
+    r, s = _calculate_r_s(x, y, z)
+    c = np.hypot(const.LINK_2_LENGTH, const.LINK_3_OFFSET)
+    q3 = calculate_q3(x, y, z)
+    sin_temp = (
+        ((c + const.LINK_3_LENGTH * np.cos(q3)) * r)
+        + const.LINK_3_LENGTH * np.sin(q3) * s
+    ) / (r**2 + s**2)
+    cos_temp = (
+        ((c + const.LINK_3_LENGTH * np.cos(q3)) * s)
+        + const.LINK_3_LENGTH * np.sin(q3) * r
+    ) / (r**2 + s**2)
+    return np.arctan2(sin_temp, cos_temp)
 
 
 def calculate_q3(x: float, y: float, z: float) -> float:
-    """Calculate joint angle q3 (elbow pitch) given wrist center position."""
-    return _elbow_joint_theta3(_cos_law_D(x, y, z)) + _offset_angle_beta()
+    """Calculate joint angle q3 (elbow pitch) given position."""
+    return _elbow_joint_theta3(_cos_law_D(x, y, z))
 
 
 def calculate_q4(x: float, y: float, z: float, orientation: Quaternion) -> float:
@@ -113,14 +119,5 @@ def calculate_q4(x: float, y: float, z: float, orientation: Quaternion) -> float
     q2 = calculate_q2(x, y, z)
     q3 = calculate_q3(x, y, z)
 
-    # get rotation matrix from quaternion
-    qx = orientation.x
-    qy = orientation.y
-    qz = orientation.z
-    qw = orientation.w
-
-    # get R31 and R33
-    r31 = 2 * (qx * qy + qw * qz)
-    r33 = 1 - 2 * (qy**2 + qz**2)
-
-    return np.arctan2(r31, r33) - (q2 + q3)
+    _, _, phi = _calculate_z3_r3_phi(x, y, z)
+    return phi - q2 - q3
