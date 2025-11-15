@@ -14,8 +14,5 @@
   <depend>geometry_msgs</depend>
   <depend>std_msgs</depend>
 
-  <export>
-    <build_type>ament_cmake</build_type>
-    <member_of_group>rosidl_interface_packages</member_of_group>
-  </export>
+  <member_of_group>rosidl_interface_packages</member_of_group>
 </package>
