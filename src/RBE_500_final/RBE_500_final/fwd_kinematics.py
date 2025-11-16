@@ -52,7 +52,7 @@ class ForwardKinematics(Node):
             a=const.a1,
             theta=q1,
             d=const.d1,
-            alpha=const.a1,
+            alpha=const.alpha1,
         )
         A2 = make_A_matrix(
             a=const.a2,
@@ -93,10 +93,17 @@ class ForwardKinematics(Node):
         pose.orientation.z = float(qz)
         pose.orientation.w = float(qw)
 
-        self.publisher.publish(pose)
         self.get_logger().info(
-            f"Published tool pose: pos=({pose.position.x:.2f}, "
-            f"{pose.position.y:.2f}, {pose.position.z:.2f})"
+            "Published tool pose:\n"
+            f"  Position:\n"
+            f"    x = {pose.position.x:.3f}\n"
+            f"    y = {pose.position.y:.3f}\n"
+            f"    z = {pose.position.z:.3f}\n"
+            f"  Orientation (quat):\n"
+            f"    x = {pose.orientation.x:.5f}\n"
+            f"    y = {pose.orientation.y:.5f}\n"
+            f"    z = {pose.orientation.z:.5f}\n"
+            f"    w = {pose.orientation.w:.5f}"
         )
 
 

@@ -1,13 +1,7 @@
 import rclpy
 from rclpy.node import Node
 
-from .utils import (
-    get_wrist_position,
-    calculate_q1,
-    calculate_q2,
-    calculate_q3,
-    calculate_q4,
-)
+from .utils import inverse_kinematics
 
 from interfaces_pkg.srv import InverseKinematics
 
@@ -28,17 +22,14 @@ class InverseKinematicsServer(Node):
         pose = request.pose
         self.get_logger().info(f"Received pose: {pose}")
 
-        x_c, y_c, z_c = get_wrist_position(pose)
+        # returns q1..q4 in DEGREES (with angle_offset applied)
+        q1, q2, q3, q4 = inverse_kinematics(pose)
 
-        q1 = calculate_q1(x_c, y_c)
-        q2 = calculate_q2(x_c, y_c, z_c)
-        q3 = calculate_q3(x_c, y_c, z_c)
-        q4 = calculate_q4(x_c, y_c, z_c, pose.orientation)
-
-        # Store as list[float]
+        # Store as list of float values 
         response.joint_positions = [float(q1), float(q2), float(q3), float(q4)]
+
         self.get_logger().info(
-            f"IK solution: q1={q1:.3f}, q2={q2:.3f}, q3={q3:.3f}, q4={q4:.3f}"
+            f"IK solution (deg): q1={q1:.3f}, q2={q2:.3f}, q3={q3:.3f}, q4={q4:.3f}"
         )
         return response
 

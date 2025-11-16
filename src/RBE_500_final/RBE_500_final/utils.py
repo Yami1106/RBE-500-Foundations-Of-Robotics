@@ -1,139 +1,116 @@
+import math
 import numpy as np
 from geometry_msgs.msg import Pose, Quaternion
 
 from . import constants as const
 
 
-###############################################################################
-############################## Utility Functions ##############################
-###############################################################################
+# Forward-kinematics
 
-
-############################## Forward Kinematics #############################
 
 
 def make_A_matrix(a: float, theta: float, d: float, alpha: float) -> np.ndarray:
-    """Create the individual transformation matrix A using DH parameters.
+    """
+    Create the individual transformation matrix A using DH parameters.
 
     Inputs:
-        a, theta, d, alpha in *degrees* for theta/alpha (a, d in mm).
+        a, d in mm
+        theta, alpha in DEGREES
     """
-    alpha_rad = np.radians(alpha)
-    theta_rad = np.radians(theta)
+    alpha_rad = math.radians(alpha)
+    theta_rad = math.radians(theta)
 
-    ca = np.cos(alpha_rad)
-    sa = np.sin(alpha_rad)
-    ct = np.cos(theta_rad)
-    st = np.sin(theta_rad)
+    ca = math.cos(alpha_rad)
+    sa = math.sin(alpha_rad)
+    ct = math.cos(theta_rad)
+    st = math.sin(theta_rad)
 
     A = np.array(
         [
             [ct, -st * ca, st * sa, a * ct],
-            [st, ct * ca, -ct * sa, a * st],
-            [0.0, sa, ca, d],
-            [0.0, 0.0, 0.0, 1.0],
+            [st,  ct * ca, -ct * sa, a * st],
+            [0.0,     sa,      ca,     d   ],
+            [0.0,    0.0,     0.0,   1.0  ],
         ]
     )
 
     return A
 
-
-############################## Inverse Kinematics #############################
-
-
-# def get_wrist_position(pose: Pose) -> tuple[float, float, float]:
-#     """Calculate wrist center position given end-effector pose."""
-#     qx = pose.orientation.x
-#     qy = pose.orientation.y
-#     qz = pose.orientation.z
-#     qw = pose.orientation.w
-
-#     # Third column of rotation matrix from quaternion
-#     r13 = 2 * (qx * qz + qw * qy)
-#     r23 = 2 * (qy * qz - qw * qx)
-#     r33 = 1 - 2 * (qx**2 + qy**2)
-
-#     x_c = pose.position.x - const.LINK_4_LENGTH * r13
-#     y_c = pose.position.y - const.LINK_4_LENGTH * r23
-#     z_c = pose.position.z - const.LINK_4_LENGTH * r33
-
-#     return x_c, y_c, z_c
+# Inverse Kinematics 
 
 
-# def calculate_q1(x: float, y: float) -> float:
-#     """Calculate joint angle q1 (yaw about base) given wrist center position."""
-#     return np.arctan2(y, x)
+# function to calculate pitch from quaternion angles which is phi
+def _tool_pitch_from_quaternion(q: Quaternion) -> float:
+    """
+    Extract the tool pitch φ from the end-effector orientation.
+
+    φ = atan2(R31, R33)
+    """
+    qx, qy, qz, qw = q.x, q.y, q.z, q.w
+
+    r31 = 2.0 * (qx * qy + qw * qz)
+    r33 = 1.0 - 2.0 * (qy**2 + qz**2)
+
+    return math.atan2(r31, r33)  # radians
 
 
-# def _planar_components(x: float, y: float, z: float) -> tuple[float, float]:
-#     """Calculate planar components r and s from wrist center position."""
-#     r = np.hypot(x, y)
-#     s = z - const.LINK_2_OFFSET
-#     return r, s
+def inverse_kinematics(pose: Pose) -> tuple[float, float, float, float]:
+    """
+    IK for 4-DOF OpenManipulator-X using DH table:
+
+      Joint 1: θ1
+      Joint 2: θ2_DH = q2_cmd − θ0
+      Joint 3: θ3_DH = q3_cmd + θ0
+      Joint 4: θ4
+
+    Returns:
+      q1_cmd, q2_cmd, q3_cmd, q4_cmd in degrees,
+      to follow same convention FK expects
+    """
+
+    px = pose.position.x * 1000.0
+    py = pose.position.y * 1000.0
+    pz = pose.position.z * 1000.0
+
+    theta1 = math.atan2(py, px)
+
+    # combine xy plane to r plane now represent everything as (ri,zi)
+    # r3, z3 in the r–z plane
+    r3 = math.hypot(px, py)
+    z3 = pz - const.d1
+
+    phi = _tool_pitch_from_quaternion(pose.orientation)  # in radians
+
+    r2 = r3 - const.a4 * math.cos(phi)
+    z2 = z3 - const.a4 * math.sin(phi)
+
+    num = r2**2 + z2**2 - (const.a2**2 + const.a3**2)
+    den = 2.0 * const.a2 * const.a3
+    D = num / den
+    D = max(-1.0, min(1.0, D))         # to keep in check that floating point does not interfere with the values clamp it between -1 and 1 
+
+    theta3 = -math.acos(D)              # our robot cannot do elbow-up so take elbow-down solution (radians) by default
+
+    k1 = const.a2 + const.a3 * math.cos(theta3)
+    k2 = const.a3 * math.sin(theta3)
+
+    denom = r2**2 + z2**2
+    cos_t2 = (k1 * r2 + k2 * z2) / denom
+    sin_t2 = (k1 * z2 - k2 * r2) / denom
+
+    theta2 = math.atan2(sin_t2, cos_t2)  # radians
+
+    theta4 = phi - (theta2 + theta3)     # radians
+
+    theta1_deg = math.degrees(theta1)
+    theta2_deg = math.degrees(theta2)
+    theta3_deg = math.degrees(theta3)
+    theta4_deg = math.degrees(theta4)
 
 
-# def _cos_law_D(x: float, y: float, z: float) -> float:
-#     """Calculate the cosine law D value from wrist center position."""
-#     r, s = _planar_components(x, y, z)
-#     D = (
-#         r**2
-#         + s**2
-#         - const.LINK_2_LENGTH**2
-#         - const.LINK_3_OFFSET**2
-#         - const.LINK_3_LENGTH**2
-#     ) / (2 * const.LINK_3_LENGTH * np.hypot(const.LINK_2_LENGTH, const.LINK_3_OFFSET))
+    q1_cmd = theta1_deg
+    q2_cmd = theta2_deg + const.angle_offset  # if not done ik gives the geometric angles which differ by the offset value 
+    q3_cmd = theta3_deg - const.angle_offset  # not necessary but makes it simpler to read it in the output
+    q4_cmd = theta4_deg
 
-#     # If unreachable, this assertion will throw.
-#     assert -1.0 <= D <= 1.0, "Position is unreachable."
-#     return D
-
-
-# def _elbow_joint_theta3(D: float) -> float:
-#     """Calculate elbow joint angle θ3 using cosine law D value."""
-#     return np.arctan2(-np.sqrt(1.0 - D**2), D)
-
-
-# def _offset_angle_beta() -> float:
-#     """Calculate the offset angle beta."""
-#     return np.arctan2(const.LINK_3_OFFSET, const.LINK_2_LENGTH)
-
-
-# def calculate_q2(x: float, y: float, z: float) -> float:
-#     """Calculate joint angle q2 (shoulder pitch) given wrist center position."""
-#     r, s = _planar_components(x, y, z)
-#     D = _cos_law_D(x, y, z)
-#     theta3 = _elbow_joint_theta3(D)
-#     beta = _offset_angle_beta()
-
-#     return (
-#         np.arctan2(s, r)
-#         - np.arctan2(
-#             const.LINK_3_LENGTH * np.sin(theta3),
-#             np.hypot(const.LINK_2_LENGTH, const.LINK_3_OFFSET)
-#             + const.LINK_3_LENGTH * np.cos(theta3),
-#         )
-#         + beta
-#     )
-
-
-# def calculate_q3(x: float, y: float, z: float) -> float:
-#     """Calculate joint angle q3 (elbow pitch) given wrist center position."""
-#     return _elbow_joint_theta3(_cos_law_D(x, y, z)) + _offset_angle_beta()
-
-
-# def calculate_q4(x: float, y: float, z: float, orientation: Quaternion) -> float:
-#     """Calculate joint angle q4 (wrist pitch)."""
-#     q2 = calculate_q2(x, y, z)
-#     q3 = calculate_q3(x, y, z)
-
-#     # Rotation matrix elements from quaternion
-#     qx = orientation.x
-#     qy = orientation.y
-#     qz = orientation.z
-#     qw = orientation.w
-
-#     # R31 and R33 from quaternion
-#     r31 = 2 * (qx * qy + qw * qz)
-#     r33 = 1 - 2 * (qy**2 + qz**2)
-
-#     return np.arctan2(r31, r33) - (q2 + q3)
+    return q1_cmd, q2_cmd, q3_cmd, q4_cmd
