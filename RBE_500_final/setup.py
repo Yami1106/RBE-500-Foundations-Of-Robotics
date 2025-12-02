@@ -26,7 +26,8 @@ setup(
         'console_scripts': [
             'fwd_kinematics = RBE_500_final.fwd_kinematics:main',
             'inv_kinematics_srv = RBE_500_final.inv_kinematics_srv:main',
-            'velocity_kinematics = RBE_500_final.vel_kinematics_srv:main'
+            'velocity_kinematics = RBE_500_final.vel_kinematics_srv:main',
+            'incremental_joint_controller = RBE_500_final.incremental_joint_positions:main',
         ],
     },
 )
