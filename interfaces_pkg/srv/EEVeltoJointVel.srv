@@ -1,0 +1,4 @@
+float64[] q          # joint positions (rad)
+float64[] x_dot      # end-effector velocity (6x1 twist: [vx, vy, vz, wx, wy, wz])
+---
+float64[] q_dot      # joint velocities (rad/s)
