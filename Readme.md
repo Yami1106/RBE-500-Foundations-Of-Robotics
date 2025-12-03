@@ -25,3 +25,7 @@ ros2 topic pub /incremental_qdot_cmd std_msgs/Float64MultiArray \
 ros2 topic echo /incremental_joint_targets
 ```
 
+4) linear motion in +y direction : 
+
+ros2 run RBE_500_final linear_motion
+

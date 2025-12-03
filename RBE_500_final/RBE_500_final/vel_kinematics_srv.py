@@ -3,8 +3,8 @@ from rclpy.node import Node
 import numpy as np
 
 from interfaces_pkg.srv import JointVeltoEEVel, EEVeltoJointVel
-from .constants import *    
-from .utils import make_A_matrix   
+from .constants import *    # a1, a2, a3, a4, etc.
+from .utils import make_A_matrix   # if you need FK internally
 
 
 # function to calculate the jacobian, take an array input with the values q1,q2,q3,q4 
