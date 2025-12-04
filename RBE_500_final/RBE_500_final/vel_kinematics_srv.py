@@ -71,8 +71,7 @@ def compute_jacobian(q: np.ndarray) -> np.ndarray:
     J[:3, 3] = np.cross(z3, o4 - o3)
     J[3:, 3] = z3
     
-    # CRITICAL FIX: If constants are in mm, convert linear part to m
-    # Check if values are in mm range (> 10)
+    # convert linear part to m from mm
     if np.max(np.abs(J[:3, :])) > 10:
         J[:3, :] = J[:3, :] / 1000.0  # Convert mm to m
     
