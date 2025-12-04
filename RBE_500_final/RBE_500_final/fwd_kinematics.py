@@ -1,9 +1,11 @@
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import Float64MultiArray
+from sensor_msgs.msg import JointState
 from geometry_msgs.msg import Pose
 from scipy.spatial.transform import Rotation as R
 import numpy as np
+import math
 
 from .utils import make_A_matrix
 from . import constants as const
@@ -15,8 +17,8 @@ class ForwardKinematics(Node):
 
         # Subscribe to joint values (Float64MultiArray)
         self.subscriber = self.create_subscription(
-            Float64MultiArray,
-            "joint_values",          # make sure this matches your publisher
+            JointState,
+            "joint_states",          # make sure this matches your publisher
             self.fwd_kinematics_cb,
             10,
         )
@@ -28,22 +30,19 @@ class ForwardKinematics(Node):
             10,
         )
 
-    def fwd_kinematics_cb(self, msg: Float64MultiArray) -> None:
-        if len(msg.data) != const.DOF:
-            self.get_logger().error(
-                f"Expected {const.DOF} joint values, but got {len(msg.data)}"
-            )
-            return
-
-        # Expecting 4 DOF: q1, q2, q3, q4
-        q1, q2, q3, q4 = msg.data
+    def fwd_kinematics_cb(self, msg: JointState) -> None:
+        q1 = np.degrees(msg.position[0])
+        q2 = np.degrees(msg.position[1])
+        q3 = np.degrees(msg.position[2])
+        q4 = np.degrees(msg.position[3])
+        #q1, q2, q3, q4 = 53, -26, -33, 29
         """
         DH parameter table:
         Link |   a   |  θ  |   d        | α
         -------------------------------------
-        1    |   0   | q1     |  d1        | 90
-        2    |  a2   | q2+th  |  0         | 0
-        3    |  a3   | q3-th  |  0         | 0
+        1    |   0   | q1     |  d1        | -90
+        2    |  a2   | q2-th  |  0         | 0
+        3    |  a3   | q3+th  |  0         | 0
         4    |  a4   | q4     |  0         | 0
         """
 
@@ -56,13 +55,13 @@ class ForwardKinematics(Node):
         )
         A2 = make_A_matrix(
             a=const.a2,
-            theta=(q2 + const.angle_offset),
+            theta=(q2 - const.angle_offset),
             d=const.d2,
             alpha=const.alpha2,
         )
         A3 = make_A_matrix(
             a=const.a3,
-            theta=(q3 - const.angle_offset),
+            theta=(q3 + const.angle_offset),
             d=const.d3,
             alpha=const.alpha3,
         )
@@ -78,7 +77,10 @@ class ForwardKinematics(Node):
         #A_tool[:3, 3] = [const.a4, 0.0, 0.0]
 
         # Full transform from base to tool
-        T = A1 @ A2 @ A3 @ A4 #@ A_tool
+        #T = A1 @ A2 @ A3 @ A4 #@ A_tool
+        temp = np.matmul(A1, A2)
+        temp = np.matmul(temp, A3)
+        T = np.matmul(temp, A4)
         rotation, position = T[:3, :3], T[:3, 3]
 
         pose = Pose()
@@ -88,6 +90,7 @@ class ForwardKinematics(Node):
 
         # Rotation matrix -> quaternion (x, y, z, w)
         qx, qy, qz, qw = R.from_matrix(rotation).as_quat()
+
         pose.orientation.x = float(qx)
         pose.orientation.y = float(qy)
         pose.orientation.z = float(qz)

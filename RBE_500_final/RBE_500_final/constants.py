@@ -1,23 +1,21 @@
 DOF = 4
 a1 = 0
-a2 = 130.230
-a3 = 124
-a4 = 133.4
+a2 = 0.130230
+a3 = 0.124
+a4 = 0.1334
 
-d1 = 96.326
+d1 = 0.096326
 d2 = 0
 d3 = 0
 d4 = 0
 
-alpha1 = 90
+alpha1 = -90
 alpha2 = 0
 alpha3 = 0
 alpha4 = 0
 
-angle_offset = 79.381 #10.619
-
-
-
+short_angle_offset = 10.619
+angle_offset = 79.380
 
 # LINK_0_LENGTH = 36.076
 # LINK_2_OFFSET = 96.326

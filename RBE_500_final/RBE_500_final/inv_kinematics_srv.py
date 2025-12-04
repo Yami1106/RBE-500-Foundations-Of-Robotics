@@ -1,8 +1,6 @@
 import rclpy
 from rclpy.node import Node
 
-import math
-
 from .utils import inverse_kinematics
 
 from interfaces_pkg.srv import InverseKinematics
@@ -24,13 +22,11 @@ class InverseKinematicsServer(Node):
         pose = request.pose
         self.get_logger().info(f"Received pose: {pose}")
 
+        # returns q1..q4 in DEGREES (with angle_offset applied)
         q1, q2, q3, q4 = inverse_kinematics(pose)
 
-        # Convert to degrees
-        # q1 = math.degrees(q1_rad)
-        # q2 = math.degrees(q2_rad)
-        # q3 = math.degrees(q3_rad)
-        # q4 = math.degrees(q4_rad)
+        # Store as list of float values 
+        response.joint_positions = [float(q1), float(q2), float(q3), float(q4)]
 
         self.get_logger().info(
             f"IK solution (deg): q1={q1:.3f}, q2={q2:.3f}, q3={q3:.3f}, q4={q4:.3f}"
