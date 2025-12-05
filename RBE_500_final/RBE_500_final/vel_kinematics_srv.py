@@ -15,7 +15,7 @@ def compute_jacobian(q: np.ndarray) -> np.ndarray:
     Return: 6x4 numpy array (linear + angular velocity Jacobian).
     """
     
-    # Extract joint angles (in radians)
+    # get joint angles (in radians)
     q1, q2, q3, q4 = q[0], q[1], q[2], q[3]
     
     # Convert to degrees for DH convention (make_A_matrix expects degrees)
@@ -30,26 +30,26 @@ def compute_jacobian(q: np.ndarray) -> np.ndarray:
     A3 = make_A_matrix(a=a3, theta=(q3_deg + angle_offset), d=d3, alpha=alpha3)
     A4 = make_A_matrix(a=a4, theta=q4_deg, d=d4, alpha=alpha4)
     
-    # Compute cumulative transforms
+    # Compute transforms
     T1 = A1
     T2 = T1 @ A2
     T3 = T2 @ A3
     T4 = T3 @ A4  # End-effector transform
     
-    # Extract positions (origins of each frame)
+    # get positions (origins of each frame)
     o0 = np.array([0.0, 0.0, 0.0])  # Base origin
     o1 = T1[:3, 3]
     o2 = T2[:3, 3]
     o3 = T3[:3, 3]
     o4 = T4[:3, 3]  # End-effector position
     
-    # Extract z-axes (rotation axes) from each frame
+    # get z-axes (rotation axes) from each frame
     z0 = np.array([0.0, 0.0, 1.0])  # Base z-axis
     z1 = T1[:3, 2]
     z2 = T2[:3, 2]
     z3 = T3[:3, 2]
     
-    # Build Jacobian using standard formula for revolute joints:
+    # Jacobian using formula for revolute joints:
     # J_v = z_{i-1} × (o_n - o_{i-1})  (linear velocity part)
     # J_ω = z_{i-1}                     (angular velocity part)
     
@@ -71,7 +71,7 @@ def compute_jacobian(q: np.ndarray) -> np.ndarray:
     J[:3, 3] = np.cross(z3, o4 - o3)
     J[3:, 3] = z3
     
-    # convert linear part to m from mm
+    # If constants are in mm, convert linear part to m
     if np.max(np.abs(J[:3, :])) > 10:
         J[:3, :] = J[:3, :] / 1000.0  # Convert mm to m
     
