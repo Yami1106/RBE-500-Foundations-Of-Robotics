@@ -18,6 +18,7 @@ rosidl_generate_interfaces(${PROJECT_NAME}
   "srv/InverseKinematics.srv"
   "srv/JointVeltoEEVel.srv"
   "srv/EEVeltoJointVel.srv"
+  "srv/Joint4PositionRef.srv"
   DEPENDENCIES geometry_msgs
 )
 

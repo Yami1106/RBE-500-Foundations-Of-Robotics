@@ -1,0 +1,6 @@
+# GetCurrent.srv
+# Request the present current of a given Dynamixel ID.
+
+int32 id        # DYNAMIXEL ID to query
+---
+int32 current   # present current in Dynamixel units (NOT Amps)

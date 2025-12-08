@@ -29,6 +29,7 @@ setup(
             'velocity_kinematics = RBE_500_final.vel_kinematics_srv:main',
             'incremental_joint_controller = RBE_500_final.incremental_joint_positions:main',
             'linear_motion = RBE_500_final.linear_motion:main',
+            'PD_control = RBE_500_final.joint4_pd_controller:main',
         ],
     },
 )

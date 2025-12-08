@@ -10,6 +10,7 @@ class IncrementalJointController(Node):
     def __init__(self):
         super().__init__("incremental_joint_positions_node")
         
+        
         # Service client to command robot
         self.cli = self.create_client(
             SetJointPosition,

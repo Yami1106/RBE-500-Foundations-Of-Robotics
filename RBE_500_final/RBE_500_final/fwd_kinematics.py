@@ -10,7 +10,7 @@ import math
 from .utils import make_A_matrix
 from . import constants as const
 
-
+f = open("xyz.txt", "w")
 class ForwardKinematics(Node):
     def __init__(self):
         super().__init__("fwd_kinematics")
@@ -96,18 +96,22 @@ class ForwardKinematics(Node):
         pose.orientation.z = float(qz)
         pose.orientation.w = float(qw)
 
-        self.get_logger().info(
-            "Published tool pose:\n"
-            f"  Position:\n"
-            f"    x = {pose.position.x:.3f}\n"
-            f"    y = {pose.position.y:.3f}\n"
-            f"    z = {pose.position.z:.3f}\n"
-            f"  Orientation (quat):\n"
-            f"    x = {pose.orientation.x:.5f}\n"
-            f"    y = {pose.orientation.y:.5f}\n"
-            f"    z = {pose.orientation.z:.5f}\n"
-            f"    w = {pose.orientation.w:.5f}"
-        )
+        f.write(str(pose.position.x))
+        f.write(str(pose.position.y))
+        f.write(str(pose.position.z))
+        f.write("\n")
+        #self.get_logger().info(
+        #    "Published tool pose:\n"
+        #    f"  Position:\n"
+        #    f"    x = {pose.position.x:.3f}\n"
+        #    f"    y = {pose.position.y:.3f}\n"
+        #    f"    z = {pose.position.z:.3f}\n"
+        #    f"  Orientation (quat):\n"
+        #    f"    x = {pose.orientation.x:.5f}\n"
+        #    f"    y = {pose.orientation.y:.5f}\n"
+        #    f"    z = {pose.orientation.z:.5f}\n"
+        #    f"    w = {pose.orientation.w:.5f}"
+        #)
 
 
 def main(args=None):
